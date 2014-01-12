@@ -57,9 +57,8 @@ static int gShowBackButton = 0;
 #define MENU_HEIGHT gr_get_height(gMenuIcon[MENU_BUTTON_L])				//For touch based graphical menu
 #define MENU_CENTER (gr_get_height(gMenuIcon[MENU_BUTTON_L])/2)			//To bring menu text at the center of button. Text location from bottom of menu button.
 #define MENU_INCREMENT (gr_get_height(gMenuIcon[MENU_BUTTON_L])/2)		//Used for plotting menu buttons - specify spacing between two successive buttons location (X-start, Y-start)
-#define MENU_ITEM_LEFT_OFFSET 0.02*gr_fb_width()						//X location relative to screen width for placement of menu items inside two cloumns of menu buttons
+#define MENU_ITEM_LEFT_OFFSET 0.03*gr_fb_width()						//X location relative to screen width for placement of menu items inside two cloumns of menu buttons
 #define MENU_ITEM_RIGHT_OFFSET 0.52*gr_fb_width()
-#define MENU_TITLE_BGK_HEIGHT gr_get_height(gMenuIcon[MENU_TITLE_BGK])				//Height of the title image used
 #define resX gr_fb_width()		
 #define resY gr_fb_height()	
 
@@ -114,7 +113,6 @@ static const struct { gr_surface* surface; const char *name; } BITMAPS[] = {
     { &gBackgroundIcon[BACKGROUND_ICON_INSTALLING], "icon_installing" },
     { &gBackgroundIcon[BACKGROUND_ICON_ERROR],      "icon_error" },
     { &gBackgroundIcon[BACKGROUND_ICON_CLOCKWORK],  "icon_clockwork" },
-    { &gBackgroundIcon[BACKGROUND_ICON_CID],  "icon_cid" },
     { &gBackgroundIcon[BACKGROUND_ICON_FIRMWARE_INSTALLING], "icon_firmware_install" },
     { &gBackgroundIcon[BACKGROUND_ICON_FIRMWARE_ERROR], "icon_firmware_error" },
     { &gMenuIcon[MENU_BACK],     	"icon_back" },
@@ -356,7 +354,7 @@ static void draw_screen_locked(void)
 
     if (show_text) {
         // don't "disable" the background anymore with this...
-        gr_color(0, 0, 0, 100);
+        gr_color(0, 0, 0, 80);
         gr_fill(0, 0, gr_fb_width(), gr_fb_height());
 
         int total_rows = (gr_fb_height() / CHAR_HEIGHT) - MIN_BLANK_ROWS;
@@ -447,7 +445,7 @@ static void draw_screen_locked(void)
                 if (row >= max_menu_rows - MIN_BLANK_ROWS)
                     break;
             }
-            //gr_fill(0, row*CHAR_HEIGHT+CHAR_HEIGHT/2-1, gr_fb_width(), //row*CHAR_HEIGHT+CHAR_HEIGHT/2+1); 
+
             if (menu_items - menu_show_start + BUTTON_EQUIVALENT(menu_top) > BUTTON_MAX_ROWS)
 			{
 				if((BUTTON_MAX_ROWS - BUTTON_EQUIVALENT(menu_top))%2 == 0)
@@ -1036,6 +1034,9 @@ void ui_init(void)
 {
     ui_has_initialized = 1;
     gr_init();
+#ifdef BOARD_HAS_FLIPPED_SCREEN
+    gr_flip();
+#endif    
     ev_init(input_callback, NULL);
 
     text_col = text_row = 0;

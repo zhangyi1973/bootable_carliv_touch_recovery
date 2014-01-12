@@ -129,10 +129,7 @@ return 0;
 
 //For those devices which has skewed X axis and Y axis detection limit (Not similar to XY resolution of device), So need normalization
 int MT_X(int fd, int x)
-{
-#ifdef RECOVERY_TOUCHSCREEN_FLIP_X
-    x = gr_fb_width() - x;
-#endif	
+{	
 	int abs_store[6] = {0};
 
   	ioctl(fd, EVIOCGABS(ABS_MT_POSITION_X), abs_store);
@@ -144,10 +141,7 @@ int MT_X(int fd, int x)
 }
 
 int MT_Y(int fd, int y)
-{
-#ifdef RECOVERY_TOUCHSCREEN_FLIP_Y
-    y = gr_fb_height() - y;
-#endif	
+{	
 	int abs_store[6] = {0};
    	
    	ioctl(fd, EVIOCGABS(ABS_MT_POSITION_Y), abs_store);
