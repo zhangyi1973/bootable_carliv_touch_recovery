@@ -10,3 +10,6 @@ DEVICE_RESOLUTION := 540x960
 ```
 
 Enjoy!
+
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zhangyi1973/bootable_carliv_touch_recovery?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
